@@ -1,23 +1,24 @@
-from flask import Flask
-import requests
-from bs4 import BeautifulSoup
+from flask import Flask, render_template,request
+import math
+from tasks import covid_data
 
-app = Flask('webapp')
+app = Flask(__name__)
 
-URL = 'https://en.wikipedia.org/wiki/List_of_countries_by_percentage_of_population_living_in_poverty'
-page = requests.get(URL)
-
-soup = BeautifulSoup(page.content)
+url = "https://en.wikipedia.org/wiki/Template:COVID-19_pandemic_data"
 
 @app.route('/')
-def home():
-    return soup.prettify()
+def welcome_msg():
+    return f"The following table is being scrapped from {url}"
+
+@app.route('/covid')
+def covid_table():
+    table = covid_data(url)
+    return render_template("table.html", data=table)
 
 @app.route('/user/<username>')
 def message(username):
     return f"Hello {username}. Nice to meet you!"
 
-import math
 @app.route('/sqrt/<num>')
 def squared_root_num(num):
     return str(math.sqrt(int(num)))
@@ -25,8 +26,8 @@ def squared_root_num(num):
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
     if request.method == 'POST':
-        result = request.form
-        return result
+        attempted_username = request.form['username']
+        attempted_password = request.form['password']
     else:
         return f"this was a {request.method}"
 
