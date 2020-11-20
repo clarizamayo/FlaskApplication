@@ -1,0 +1,41 @@
+<form action="/contact" method="POST">
+    <p>Name: <input type="text" name="name"/></p>
+    <p>Email: <input type="text" name="email"/></p>
+    <p>Message: <input type="text" name="message"/></p>
+    <p><input type="submit" value="submit"/></p>
+</form>
+
+<p>form data:</p>
+<pre>
+
+request:
+{{ request }}
+
+Name:
+{{ request.form.name }}
+
+Email:
+{{ request.form.email }}
+
+Message:
+{{ request.form.message }}
+
+request.url:
+{{ request.url }}
+
+request.method:
+{{ request.method }}
+
+request.args:
+{{ request.args }}
+
+request.data:
+{{ request.data }}
+
+request.user_agent:
+{{ request.user_agent }}
+
+request.form:
+{{ request.form }}
+
+</pre>

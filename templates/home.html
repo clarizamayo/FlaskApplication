@@ -1,0 +1,9 @@
+<body>
+    <h1>home</h1>
+    <a href="{{ url_for('contact') }}">register</a>
+    <br>
+    {% for customer in customers %}
+        {{customer.name}}, {{ customer.house_address }}, {{ customer.email }}, {{ customer.company }}, {{ customer.outstanding_invoices }}
+        <br>
+    {% endfor %}
+</body>
